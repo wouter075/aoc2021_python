@@ -31,29 +31,43 @@ for y in range(maxY):
 
 # build grid:
 for x, y in coords:
-    # print(f'{y}, {x}')
     grid[y][x] = "#"
 
-
 # folding time!
+# part 1: for d, n in folds[:1]:
 for d, n in folds:
-    # print(f'{d}: {n}')
     if d == 'y':
         start_y = math.ceil(len(grid) / 2)
-        for l in range(start_y, len(grid)):
-            m = (n * 2) - l
-            for c in range(maxY):
-                print(f'{c},{l} - {c},{m}')
-                # grid[m][c] = grid[l][c]
+        for liner in range(start_y, len(grid)):
+            m = (n * 2) - liner
+            for c in range(len(grid[0])):
+                if grid[liner][c] == "#":
+                    grid[m][c] = grid[liner][c]
+        # remove line
+        for liner in range(len(grid) - 1, start_y - 2, -1):
+            grid.pop(liner)
 
-            print("-"*10)
+    if d == 'x':
+        start_x = math.ceil(len(grid[0]) / 2)
+        for cols in range(start_x, len(grid[0])):
+            m = (n * 2) - cols
+            for c in range(len(grid)):
+                if grid[c][cols] == "#":
+                    grid[c][m] = grid[c][cols]
+        # remove col
+        for cols in range(len(grid[0]) - 1, n - 1, -1):
+            # print(cols)
+            for r in range(len(grid) - 1, -1, -1):
+                grid[r].pop(cols)
 
-
-
-
-
-
-# print
+part1 = 0
 for y in range(len(grid)):
     print(grid[y])
+    for x in range(len(grid[0])):
+        if grid[y][x] == "#":
+            part1 += 1
+
+print(f"Part 1: {part1}")
+
+
 

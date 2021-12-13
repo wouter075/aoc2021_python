@@ -51,6 +51,9 @@ for i in range(len(segments)):
                 pass
 
     while len(u2) is not 0:
+        print("while:")
+        print(u2)
+        print("-"*10)
         for p in unknown:
             if len(p) == 5:
                 # 2
@@ -65,6 +68,7 @@ for i in range(len(segments)):
                 if len(known[3]) > 0:
                     if len(set(p).intersection(known[3])) == 4:
                         known[5] = "".join(sorted(p))
+
                         try:
                             u2.remove(p)
                         except ValueError:
@@ -82,14 +86,16 @@ for i in range(len(segments)):
         if len(u2) == 1:
             known[0] = u2[0]
             u2.remove(u2[0])
-    print(known)
+    # print(known)
     # we know all the segments!
     sum = ""
-    print(signal)
+    # print(signal)
     for s in signal.split(" "):
         s = "".join(sorted(s))
+        # print(s)
         sum += str(list(known.keys())[list(known.values()).index(s)])
     part2 += int(sum)
+
 
 print(f'Part 1: {part1}')
 print(f'Part 2: {part2}')
